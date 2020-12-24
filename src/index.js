@@ -1,17 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import store from './store';
+import { bugAdded, bugResolved } from './action';
+console.log('store changed', store.getState());
+const unsubscribe = store.subscribe(() => {
+  console.log('store changed', store.getState());
+})
+
+const handleAddBug = () => {
+  store.dispatch(bugAdded('bug1'));
+
+}
+
+const resolveBug = () => {
+  store.dispatch(bugResolved(1));
+
+
+}
+
+const handleDeleteBug = () => {
+  unsubscribe();
+  // store.dispatch({
+  //   type: actions.BUG_REMOVED,
+  //   payload: {
+  //     id: 1
+  //   }
+  // })
+}
 
 ReactDOM.render(
   <React.StrictMode>
+    <button onClick={handleAddBug}>Add Bug</button>
+    <button onClick={handleDeleteBug}>Delete Bug</button>
+    <button onClick={resolveBug}>Resolve Bug</button>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
