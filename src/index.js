@@ -12,12 +12,12 @@ const unsubscribe = store.subscribe(() => {
 })
 
 const handleAddBug = () => {
-  store.dispatch(bugAdded('bug1'));
+  store.dispatch(bugAdded({description:'bug1'}));
 
 }
 
 const resolveBug = () => {
-  store.dispatch(bugResolved(1));
+  store.dispatch(bugResolved({id:1}));
 
 
 }
